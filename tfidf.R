@@ -51,9 +51,9 @@ for (i in 1:nrow(df1)) {
     }
   
   #TF_IDF for the term
-  df$tf.idf[j] <- tfidf(df1$nt[i],ft[i],ndocs,ncorpus)
+  df1$tf.idf[j] <- tfidf(df1$nt[i],df1$ft,ndocs,ncorpus)
   write(str[j], file ="data/Result.docx", append = TRUE)
-  write(tf.idf[j], file ="data/Result.docx", append = TRUE)
+  write(df1$tf.idf[j], file ="data/Result.docx", append = TRUE)
   }
 
   
