@@ -16,15 +16,19 @@ ncorpus <- length(df1$api_text)
 for (i in 1:nrow(df1)) {
   
   #Number of terms in the document(Each tweet: separate document)
-  df1$nt[i]<- sapply(strsplit(df1$api_text[i]," ", fixed = FALSE), length)
+  nt<- sapply(strsplit(df1$api_text[i]," ", fixed = FALSE), length)
   #write to the file
-  write(df1$Advertiser[i], file = "data/Result.docx", append = TRUE)
-  write(df1$api_text[i], file ="data/Result.docx", append = TRUE)
-  write(df1$CTR[i], file = "data/Result.docx", append = TRUE)
+  #write(df1$Advertiser[i], file = "data/Result.docx", append = TRUE)
+  #write(df1$api_text[i], file ="data/Result.docx", append = TRUE)
+  #write(df1$CTR[i], file = "data/Result.docx", append = TRUE)
+  df1$Advertiser[i]
+  df1$api_text[i]
+  df1$CTR[i]
   
   #Split the tweet.
   str <- (strsplit(df1$api_text[i]," ", fixed = FALSE))[[1]]
   
+<<<<<<< HEAD
   for(j in 1:df1$nt[i]) {
     
       #Check if the term is "a,the,and, in"
@@ -44,14 +48,41 @@ for (i in 1:nrow(df1)) {
           if(str[j] %in% df1$api_text[k]) {
             ndocs <- ndocs+1
           }
+=======
+  for(j in 1:nt){
+    
+    
+    #Check if the term is "a,the,and, in"
+    common.terms <- c("a", "and", "the")
+    if(str[j] %in% common.terms)
+    {
+      j <- j+1
+    }
+    #Term Frequency
+    ft <- length(grep(str[j], df1$api_text[i], ignore.case = TRUE))
+    
+    #Number of documents with term in it
+    ndocs <- 1
+    for(k in 1:nrow(df1)){
+      if(df1$Advertiser[k] == df1$Advertiser[i]){
+        if(k == i){
+          k <- k+1
+        }
+        if(str[j] %in% df1$api_text[k]){
+          ndocs <- ndocs+1
+>>>>>>> 10d27c35d375205e6c68f3ba1193564799998325
         }
       }
     }
-  
-  #TF_IDF for the term
-  df$tf.idf[j] <- tfidf(df1$nt[i],ft[i],ndocs,ncorpus)
-  write(str[j], file ="data/Result.docx", append = TRUE)
-  write(tf.idf[j], file ="data/Result.docx", append = TRUE)
+    
+    
+    #TF_IDF for the term
+    tf.idf <- tfidf(nt,ft,ndocs,ncorpus)
+    #write(str[j], file ="data/Result.docx", append = TRUE)
+    #write(tf.idf, file ="data/Result.docx", append = TRUE)
+    
+    tf <- data.frame(df1$Advertiser[i],df1$api_text[i],df1$CTR[i], str[j],tf.idf)
+    write.table(tf,file="data/Result.csv", col.names = FALSE, append = TRUE)
   }
+}
 
-  
