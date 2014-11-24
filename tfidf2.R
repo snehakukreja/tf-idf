@@ -51,4 +51,4 @@ for (i in 1:nrow(df)) {
 }
 
 output <- as.data.frame(output)
-write.csv(output, "data/result.csv")
+write.csv(output, "data/result2.csv")
