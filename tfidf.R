@@ -25,25 +25,23 @@ for (i in 1:nrow(df1)) {
   #Split the tweet.
   str <- (strsplit(df1$api_text[i]," ", fixed = FALSE))[[1]]
   
-  for(j in 1:df1$nt[i]){
-    
+  for(j in 1:df1$nt[i]) {
     
       #Check if the term is "a,the,and, in"
       common.terms <- c("a", "and", "the")
-      while((!(str[j] %in% common.terms)))
-            {
+      for((!(str[j] %in% common.terms))) {
         
         #Term Frequency
         df1$ft <- length(grep(str[j], df1$api_text[i], ignore.case = TRUE))
 
         #Number of documents with term in it
         ndocs <- 1
-        for(k in 1:nrow(df1)){
-          if(df1$Advertiser[k] == df1$Advertiser[i]){
-            if(k == i){
+        for(k in 1:nrow(df1)) {
+          if(df1$Advertiser[k] == df1$Advertiser[i]) {
+            if(k == i) { 
              k <- k+1
-          }
-          if(str[j] %in% df1$api_text[k]){
+            }
+          if(str[j] %in% df1$api_text[k]) {
             ndocs <- ndocs+1
           }
         }
