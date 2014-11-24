@@ -60,6 +60,7 @@ for (i in 1:nrow(df1)) {
     #write(tf.idf, file ="data/Result.docx", append = TRUE)
     
     tf <- data.frame(df1$Advertiser[i],df1$api_text[i],df1$CTR[i], str[j],tf.idf)
-    write.table(tf,file="data/Result.csv", append = TRUE)
+    write.table(tf,file="data/Result.csv", col.names = FALSE, append = TRUE)
   }
 }
+
