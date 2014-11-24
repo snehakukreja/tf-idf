@@ -30,9 +30,10 @@ for (i in 1:nrow(df1)) {
     
     #Check if the term is "a,the,and, in"
     common.terms <- c("a", "and", "the")
-    while((!(str[j] %in% common.terms)))
+    if(str[j] %in% common.terms)
     {
-      
+      j <- j+1
+    }
       #Term Frequency
       df1$ft <- length(grep(str[j], df1$api_text[i], ignore.case = TRUE))
       
@@ -48,7 +49,7 @@ for (i in 1:nrow(df1)) {
           }
         }
       }
-    }
+    
     
     #TF_IDF for the term
     df1$tf.idf[j] <- tfidf(df1$nt[i],df1$ft,ndocs,ncorpus)
